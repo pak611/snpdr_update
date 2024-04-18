@@ -165,7 +165,7 @@ npdr <- function(time, outcome, attr.mat,
                  dopar.nn = FALSE, dopar.reg = FALSE,
                  unique.dof = FALSE, external.dist=NULL, KM.weight=TRUE, KM.kernal.type='linear', KM.kernal.sigma=1) {
 
-   browser()
+   #browser()
 
 
   ##### parse the commandline
@@ -751,7 +751,7 @@ npdr <- function(time, outcome, attr.mat,
 
   
   } # end glmnetNPDR option
-  
+  print("finished one loop")
   npdr.stats.df
 }
 
