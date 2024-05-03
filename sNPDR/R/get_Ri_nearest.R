@@ -11,6 +11,7 @@
 #' @export
 #' 
 get_Ri_nearest2 <- function(dist.mat, Ri, nbd.method, k = 0, Ri.radius = NULL) {
+  #browser()
   
   df <- dist.mat %>%
     select(!!Ri) %>% 
