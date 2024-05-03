@@ -754,4 +754,3 @@ npdr <- function(time, outcome, attr.mat,
   print("finished one loop")
   npdr.stats.df
 }
-

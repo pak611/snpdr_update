@@ -160,6 +160,8 @@ nearestNeighbors <- function(attr.mat,
                              neighbor.sampling = "none",
                              att_to_remove = c(), 
                              fast.dist = FALSE, dopar.nn = FALSE) {
+  
+  #browser()
   if (dopar.nn) {
     check_installed("foreach", reason = "for fast parallel computing with `foreach()` and `%dopar%`")
     check_installed("doParallel", reason = "for `registerDoParallel()`")

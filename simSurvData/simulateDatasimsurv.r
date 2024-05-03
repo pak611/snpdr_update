@@ -13,10 +13,10 @@ devtools::load_all("C:/Users/patri/OneDrive/Desktop/snpdr_update/snpdr_update/si
 
 #------------------------------------------ SINGLE SET ----------------------------------------------#
 
-num.covariates <- 10
-num.inst <- 20
+num.covariates <- 100
+num.inst <- 100
 # Lets try user defined beta values (coefficients)
-factor <- 60
+factor <- 30
 
 coefficients <- rep(0.1,num.covariates)
 coefficients[3:4] <- coefficients[3:4] * factor
@@ -52,9 +52,9 @@ write.csv(simdata$data, "/Users/patrickkampmeyer/Desktop/sNPDR/data/simulatedDat
 #------------------------------------------ MULTIPLE SETS ----------------------------------------------#
 
 
-num.covariates <- 1000
-num.inst <- 500
-num.sig <- 10
+num.covariates <- 100
+num.inst <- 400
+num.sig <- 2
 # Lets try user defined beta values (coefficients)
 factor <- 30
 coefficients <- rep(0.1,num.covariates)
@@ -75,13 +75,14 @@ inter.mat[2,1] <- 1
 for (i in seq(1,10)) {
         
     #For no interaction effects
-    simdata <- coxed::sim.survdata(N=num.inst, T=20, xvars = num.covariates, censor = 0.1, num.data.frames=1, beta=coefficients/2, interactions=FALSE, inter.mat=inter.mat, mu=0, sd=0.5)
+    simdata <- sim.survdata(N=num.inst, T=100, xvars = num.covariates, censor = 0.1, num.data.frames=1, beta=coefficients/2, interactions=FALSE, inter.mat=inter.mat, mu=0, sd=0.5)
 
     # output simdata to a csv
 
     # for windows
     write.csv(simdata$data, paste0("C:/Users/patri/OneDrive/Desktop/snpdr_update/snpdr_update/data/simulatedData/data_",as.character(i),".csv"))
 }
+
 
 
 
