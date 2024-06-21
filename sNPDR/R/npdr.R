@@ -32,6 +32,7 @@ diffRegression <- function(design.matrix.df, regression.type = "binomial", fast.
     res_df <- if (dof == 0) mod$df else dof
   } else { # non-speedy version
     if (regression.type == "lm") {
+      #browser()
       mod <- lm(pheno.diff.vec ~ ., data = design.matrix.df)
     } else { # regression.type == "binomial"
       mod <- glm(pheno.diff.vec ~ ., family = binomial(link = logit), data = design.matrix.df)
@@ -321,7 +322,11 @@ npdr <- function(time, outcome, attr.mat,
     #---- Reassign Ri.pheno.vals and NN.pheno.vals here ------------#
     #---- Also calculate the Kaplan-Meier Estimate here ------------#
     # Discard category 4 instances
-    filtered_indices <- which(!(NN.pheno.vals$time < Ri.pheno.vals$time & NN.pheno.vals$outcome == FALSE))
+    #filtered_indices <- which(!(NN.pheno.vals$time < Ri.pheno.vals$time & NN.pheno.vals$outcome == FALSE))
+    filtered_indices <- which(!(NN.pheno.vals$time < Ri.pheno.vals$time)) # Just filter out anything that is less than the reference time
+    # dont filter out anything
+    #filtered_indices <- which(!(NN.pheno.vals$outcome == FALSE))
+    #filtered_indices <- which(!(NN.pheno.vals$time > Ri.pheno.vals$time)) # Just filter out anything that is greater than the reference time
     #filtered_indices <- which(!(NN.pheno.vals$time < Ri.pheno.vals$time & NN.pheno.vals$outcome == FALSE) &
     #                          !(Ri.pheno.vals$outcome == FALSE) &
     #                          !(Ri.pheno.vals$time > NN.pheno.vals$time))
@@ -737,7 +742,9 @@ npdr <- function(time, outcome, attr.mat,
         # Cannot have zero time difference (equates to zero survival time in cox model)
         time.diff.vec <- if_else(time.diff.vec == 0, 0.1, time.diff.vec)
         # hit/miss vec is based on the reclassified nearest neighbors
-        pheno.diff.vec <- npdrDiff(Ri.pheno.vals, NN.pheno.vals.mutate, diff.type = "binomial-surv") 
+        #pheno.diff.vec <- npdrDiff(Ri.pheno.vals, NN.pheno.vals.mutate, diff.type = "binomial-surv")
+        pheno.diff.vec <- npdrDiff(Ri.pheno.vals, NN.pheno.vals, diff.type = "keep-same")
+        
 
         pheno.diff.vec <- cbind(time.diff.vec, pheno.diff.vec)
 

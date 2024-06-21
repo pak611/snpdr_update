@@ -22,7 +22,7 @@ library(affyPLM) # for normalization
 
 
 # Set the path to the GSM_data folder
-gsmDataFolder <- "C:/Users/patri/Dropbox/Ph.D/Research/Doctoral_Research/Bioinformatics/sNPDR/data/GSM_data"
+gsmDataFolder <- "C:/Users/patri/OneDrive/Desktop/snpdr_update/snpdr_update/data/GSM_data"
 
 # Get the list of files in the GSM_data folder
 fileList <- list.files(gsmDataFolder, full.names = TRUE)
@@ -32,7 +32,7 @@ fileList <- list.files(gsmDataFolder, full.names = TRUE)
 # We will assume that F635.Mean represents the mean fluorescence intensity of the red channel for each spot which quantifies gene expression
 
 # Set the path to the GSM_data folder
-gsmDataFolder <- "C:/Users/patri/Dropbox/Ph.D/Research/Doctoral_Research/Bioinformatics/Survival_Analysis/GSM_data"
+gsmDataFolder <- "C:/Users/patri/OneDrive/Desktop/snpdr_update/snpdr_update/data/GSM_data"
 
 # Get the list of .gpr files in the GSM_data folder
 fileList <- list.files(gsmDataFolder, pattern = "\\.gpr$", full.names = TRUE)
@@ -63,7 +63,7 @@ colnames(dataMatrix2) <- sub("\\.gpr$", "", colnames(dataMatrix2))
 # now read in the phenotype data (GSE9893_clinical_data.csv)
 
 # Set the path to the .txt file
-txtFilePath <- "C:/Users/patri/Dropbox/Ph.D/Research/Doctoral_Research/Bioinformatics/sNPDR/data/GSM_data/GSE9893_clinicalData.txt"
+txtFilePath <- "C:/Users/patri/OneDrive/Desktop/snpdr_update/snpdr_update/data/GSM_data/GSE9893_clinicalData.txt"
 
 # Read the .txt file with fill = TRUE
 phenotypeData <- read.table(txtFilePath, sep = "\t", header = TRUE, fill = TRUE)
@@ -80,12 +80,13 @@ transposedPhenoData <- transposedPhenoData[-which(rownames(transposedPhenoData) 
 # View the first few rows of the data
 head(transposedPhenoData)
 
+
 phenotypeData <- transposedPhenoData
 
 
 # Now lets change the column name from dataMatrix from GSM number to the EB number
 
-identifierPath <- "C:/Users/patri/Dropbox/Ph.D/Research/Doctoral_Research/Bioinformatics/sNPDR/data/GSM_data/identifier.csv"
+identifierPath <- "C:/Users/patri/OneDrive/Desktop/snpdr_update/snpdr_update/data/GSM_data/identifier.csv"
 identifierData <- read.csv(identifierPath, header = FALSE, stringsAsFactors = FALSE)
 
 # Set the column names

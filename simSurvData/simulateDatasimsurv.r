@@ -14,12 +14,12 @@ devtools::load_all("C:/Users/patri/OneDrive/Desktop/snpdr_update/snpdr_update/si
 #------------------------------------------ SINGLE SET ----------------------------------------------#
 
 num.covariates <- 100
-num.inst <- 100
+num.inst <- 200
 # Lets try user defined beta values (coefficients)
 factor <- 30
 
 coefficients <- rep(0.1,num.covariates)
-coefficients[3:4] <- coefficients[3:4] * factor
+coefficients[1:10] <- coefficients[1:10] * factor
 
 
 
@@ -42,21 +42,22 @@ inter.mat[2,1] <- 1
 #simdata <- coxed::sim.survdata(N=num.inst, T=40, xvars = num.covariates, censor = 0.1, num.data.frames=1, beta=coefficients/2, interactions=TRUE, inter.mat=inter.mat, mu=0, sd=0.5)
 
 #For no interaction effects
-simdata <- coxed::sim.survdata(N=num.inst, T=20, xvars = num.covariates, censor = 0.1, num.data.frames=1, beta=coefficients/2, interactions=FALSE, inter.mat=inter.mat, mu=0, sd=0.5)
+simdata <- coxed::sim.survdata(N=num.inst, T=20, type="tvbeta", xvars = num.covariates, censor = 0.1, num.data.frames=1, beta=NULL, interactions=FALSE, inter.mat=inter.mat, mu=0, sd=0.5, data.type="gene-expression")
 
 # output simdata to a csv
-write.csv(simdata$data, "/Users/patrickkampmeyer/Desktop/sNPDR/data/simulatedData/simdata_new.csv")
+write.csv(simdata$data, "C:/Users/patri/OneDrive/Desktop/snpdr_update/snpdr_update/data/simulatedData/data_1.csv")
+
 
 
 
 #------------------------------------------ MULTIPLE SETS ----------------------------------------------#
 
 
-num.covariates <- 100
-num.inst <- 400
-num.sig <- 2
+num.covariates <- 50
+num.inst <- 200
+num.sig <- 10
 # Lets try user defined beta values (coefficients)
-factor <- 30
+factor <- 20
 coefficients <- rep(0.1,num.covariates)
 coefficients[1:num.sig] <- coefficients[1:num.sig] * factor
 
@@ -67,21 +68,26 @@ coefficients[1:num.sig] <- coefficients[1:num.sig] * factor
 inter.mat <- matrix(0, nrow=num.covariates, ncol=num.covariates)
 
 # Set the elements at [1,2] and [2,1] to 1
-inter.mat[1,2] <- 1
-inter.mat[2,1] <- 1
+inter.mat[6,7] <- 1
+inter.mat[7,6] <- 1
 
 # Generate data in a loop
 
 for (i in seq(1,10)) {
         
     #For no interaction effects
-    simdata <- sim.survdata(N=num.inst, T=100, xvars = num.covariates, censor = 0.1, num.data.frames=1, beta=coefficients/2, interactions=FALSE, inter.mat=inter.mat, mu=0, sd=0.5)
+    simdata <- sim.survdata(N=num.inst, T=300, type="tvbeta", xvars = num.covariates, censor = 0.0, num.data.frames=1, beta=coefficients/2, interactions=FALSE, inter.mat=inter.mat, mu=0, sd=0.5)
 
     # output simdata to a csv
 
     # for windows
     write.csv(simdata$data, paste0("C:/Users/patri/OneDrive/Desktop/snpdr_update/snpdr_update/data/simulatedData/data_",as.character(i),".csv"))
 }
+
+
+
+
+
 
 
 

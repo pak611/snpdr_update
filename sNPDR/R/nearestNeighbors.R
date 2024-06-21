@@ -12,7 +12,7 @@
 #'
 #' @return Value or vector of differences between two vectors element-wise.
 #' @export
-npdrDiff <- function(a, b, diff.type = c("manhattan", "numeric-abs", "numeric-sqr", "allele-sharing", "match-mismatch", "correlation-data", "binomial-surv"), norm.fac = 1) {
+npdrDiff <- function(a, b, diff.type = c("manhattan", "numeric-abs", "numeric-sqr", "allele-sharing", "match-mismatch", "correlation-data", "binomial-surv", "keep-same"), norm.fac = 1) {
   if (is.null(diff.type)) diff.type <- "numeric-abs"
   diff.type <- match.arg(diff.type)
 
@@ -25,7 +25,10 @@ npdrDiff <- function(a, b, diff.type = c("manhattan", "numeric-abs", "numeric-sq
                 `correlation-data` = rowSums(abs(a - b) / norm.fac), # a and b are matrices
                 `numeric-abs` = abs(a - b) / norm.fac, # numeric abs difference
                 `manhattan` = abs(a - b) / norm.fac, # same as numeric-abs
-                `binomial-surv` = ifelse(a[,2] == b[ ,2] & a[,1] == b[,1], 1, 0) # hit pairs = 0, miss = 1
+                `binomial-surv` = ifelse(a[,2] == b[ ,2] & a[,1] == b[,1], 1, 0), # hit pairs = 0, miss = 1
+                `keep-same` = b$outcome # keep the same
+
+        
             
   )
   # For correlation data, a and b are matrices
